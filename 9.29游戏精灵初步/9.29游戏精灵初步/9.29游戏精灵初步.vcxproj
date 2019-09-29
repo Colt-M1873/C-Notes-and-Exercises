@@ -121,6 +121,10 @@
   <ItemGroup>
     <ClInclude Include="acllib.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="1.jpg" />
+    <Image Include="501.bmp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
