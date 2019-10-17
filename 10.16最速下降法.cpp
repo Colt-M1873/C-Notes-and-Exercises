@@ -5,7 +5,7 @@
 double fun(double x1, double x2);//待解的函数
 double funGrad(double x1, double x2, double &g1, double &g2);//函数fun的梯度
 double GradientDescend(double(*fun)(double, double), double(*Grad)(double, double, double&, double&),double x1, double x2, int n);
-//(*fun)为指向待求函数的指针，(*Grad)指向待求函数的梯度函数，(*fxt)指向一维搜索t的函数模板，x1,x2为初始点，n为迭代次数
+//(*fun)为指向待求函数的指针，(*Grad)指向待求函数的梯度函数，x1,x2为初始点，n为迭代次数
 
 int main()
 {
@@ -32,7 +32,7 @@ double funGrad(double x1, double x2, double &g1, double &g2)//函数fun的梯度
 
 double GradientDescend(double(*fun)(double, double), double(*Grad)(double, double, double&, double&), double x1, double x2, int n)
 {
-	//(*fun)为指向待求函数的指针，(*Grad)指向待求函数的梯度函数，(*fxt)指向一维搜索t的函数模板，x1,x2为初始点，n为迭代次数
+	//(*fun)为指向待求函数的指针，(*Grad)指向待求函数的梯度函数，x1,x2为初始点，n为迭代次数
 	double g1, g2, t0;//t0为最优步长
 	for (int i = 0; i < n; i++)
 	{
