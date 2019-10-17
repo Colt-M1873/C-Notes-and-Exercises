@@ -6,6 +6,8 @@ ctrl-shift-b生成解决方案，在英文输入法下可用，在中文输入�
 ctrl+d复制上一排
 
 
+shift+alt+enter 全屏
+
 Ctrl+W,C: 类视图 （Class）
 Ctrl+W,E: 错误列表 （Error）
 Ctrl+W,O: 输出窗口（输出Output；输出程序的的编译信息 ;可在vs中“工具”—-“选项”—-“调试”—-“输出窗口”进行配置需要查看哪些信息）
