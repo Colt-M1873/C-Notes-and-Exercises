@@ -37,17 +37,17 @@ double GradientDescend(double(*fun)(double, double), double(*Grad)(double, doubl
 	for (int i = 0; i < n; i++)
 	{
 		(*Grad)(x1, x2, g1, g2);
-		double t1, t2, left = -100, right = 100, precision = 0.00001,x1t1, x2t1, x1t2, x2t2;
-		//这些数据用于一维搜索,x1t1,x2t1在代回到fun中时可得到关于t1的函数，x1t1,x2t1在代回到fun中时可得到关于t2的函数
+		double t1, t2, left = -100, right = 100, precision = 0.00001, x1t1, x2t1, x1t2, x2t2;
+		//这些数据用于一维搜索,x1t1,x2t1在代回到fun中时可得到关于t1的函数φ(t1)，x1t1,x2t1在代回到fun中时可得到关于t2的函数φ(t2)
 		while (right - left > precision)//此处使用0.618法一维搜索求合适t0,初始区间为（-100，100）精度为0.00001
 		{
 			t1 = left + 0.382 * (right - left);
 			t2 = left + 0.618 * (right - left);
-			x1t1 = x1 - t1 * g1;
-			x2t1 = x2 - t1 * g2;
-			x1t2 = x1 - t2 * g1;
-			x2t2 = x2 - t2 * g2;//这四句将二元函数fun转换为关于t1和t2的一维函数，便于搜索
-			if ((*fun)(x1t1, x2t1) < (*fun)(x1t2, x2t2))
+			x1t1 = x1 - t1 * g1;//1
+			x2t1 = x2 - t1 * g2;//2
+			x1t2 = x1 - t2 * g1;//3
+			x2t2 = x2 - t2 * g2;//4、这四句将二元函数fun转换为关于t1和t2的一维函数，便于搜索
+			if ((*fun)(x1t1, x2t1) < (*fun)(x1t2, x2t2))//(*fun)(x1t1, x2t1)即φ(t1),(*fun)(x1t2, x2t2)即φ(t2)
 				right = t2;
 			else
 				left = t1;
@@ -55,9 +55,11 @@ double GradientDescend(double(*fun)(double, double), double(*Grad)(double, doubl
 		t0 = 0.5*(left + right);//一维搜索结束得到t0
 		x1 = x1 - t0 * g1;
 		x2 = x2 - t0 * g2;//获得新的x1，x2值
+		printf("第%d次迭代得到的点为(%f,%f)，最优步长t为%f\n",i+1,x1,x2,t0);
 	}
+	printf("\n最小值点为(%f,%f)\n",x1,x2);
 	return (*fun)(x1, x2);
-	//return t0;//用于测试t0，尚不完善
+	//return t0;//用于测试t0
 }
 
 
