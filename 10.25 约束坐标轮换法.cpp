@@ -1,9 +1,7 @@
 /*170603108 自动化17-1 杨佳男*/
 #include <stdio.h>
 #include <stdlib.h>
-//此为约束坐标轮换法
-/*预先提供原函数和约束条件就能求出二元函数的最小值*/
-//待完善，只能迭代两次（原因未知）且缺少负方向内容，坐标只能沿着两个正方向增长
+//此为约束坐标轮换法，预先提供原函数和约束条件就能求出二元函数的最小值
 double fun(double x1, double x2);//待解的函数
 double Restriction(double x1, double x2);//约束条件
 double UnivariationSearch(double(*fun)(double, double), double(*Restriction)(double, double), double x1, double x2, double t0, double precision);
@@ -23,6 +21,8 @@ int main()
 double fun(double x1, double x2)//待求解函数
 {
 	return x1 * x1 + 2 * x2*x2 - 4 * x1 - 8 * x2 + 15;
+	//return (x1 - 1)*(x1 - 1)*(x1 - 1)*(x1 - 1) + x2 * x2 + 6;//用于测试，后删去
+
 }
 double Restriction(double x1, double x2)//约束条件
 {
@@ -42,7 +42,7 @@ double UnivariationSearch(double(*fun)(double, double), double(*Restriction)(dou
 	double  t;
 	int i=0, j=0;//用于计数
 	if ((*Restriction)(x1, x2)) {
-		while (t0 >= precision) {
+		while (t0 >= precision|| t0 <= -precision) {
 			if ((*fun)(x1 + t0, x2) < (*fun)(x1, x2) && (*Restriction)(x1 + t0, x2)) {
 				//此处if是为判断能否沿着x1方向迈出第一步
 				t = t0;
@@ -63,7 +63,11 @@ double UnivariationSearch(double(*fun)(double, double), double(*Restriction)(dou
 				++j;
 				printf("沿x2方向第%d次迭代得到的点为(%f,%f)，最优步长t为%f\n", j, x1, x2, t);
 			}
-			else {//若两个方向均不能再前进
+			else if(((*fun)(x1 - t0, x2) < (*fun)(x1, x2) && (*Restriction)(x1 - t0, x2))|| ((*fun)(x1, x2 - t0) < (*fun)(x1, x2) && (*Restriction)(x1, x2 - t0))){
+				//若两个正方向均不能再前进,则尝试反向
+				t0 = -t0;
+			}
+			else{//若四个方向均不可，则缩短区间
 				t0 = t0 / 2;
 			}
 		}
