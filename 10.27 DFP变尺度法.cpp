@@ -14,19 +14,19 @@ int main()
 	double(*f)(double, double), (*g)(double, double, double&, double&);
 	f = fun;
 	g = funGrad;//定义相应的函数指针
-	result = DFP(f, g, 20, 11, 0.0000000001);
+	result = DFP(f, g, 1, 1, 0.01);
 	printf("函数最小值为 %f", result);
 	system("pause");
 }
 
 double fun(double x1, double x2)
 {
-	return (x1 - 1)*(x1 - 1)*(x1 - 1)*(x1 - 1) + x2 * x2;
+	return x1*x1+4*x2 * x2;
 }
 double funGrad(double x1, double x2, double &g1, double &g2)//函数fun的梯度
 {
-	g1 = 4 * x1* x1* x1 - 12 * x1* x1 + 12 * x1 - 4;//此处g1g2使用引用方式传递参数避免了返回值仅有一个的问题
-	g2 = 2 * x2;
+	g1 = 2 * x1;//此处g1g2使用引用方式传递参数避免了返回值仅有一个的问题
+	g2 = 8 * x2;
 	return  0;
 }
 
@@ -38,7 +38,7 @@ double DFP(double(*fun)(double, double), double(*Grad)(double, double, double&, 
 	int i = 0;//计数器
 	(*Grad)(x1, x2, g1, g2);
 	while (1) {//此处恒为真是为了减小运算量，若将精度判断放在此处则会在g1 g2满足精度要求之后再多计算一次H矩阵
-		double t1, t2, left = -100, right = 100, prec = 0.00001, x1t1, x2t1, x1t2, x2t2;
+		double t1, t2, left = -100, right = 100, prec = 0.0000001, x1t1, x2t1, x1t2, x2t2;
 		//这些数据用于一维搜索,x1t1,x2t1在代回到fun中时可得到关于t1的函数φ(t1)，x1t1,x2t1在代回到fun中时可得到关于t2的函数φ(t2)
 		while (right - left > prec) {//此处使用0.618法一维搜索求合适t0,初始区间为（-100，100）精度为0.00001
 			t1 = left + 0.382 * (right - left);
@@ -55,22 +55,26 @@ double DFP(double(*fun)(double, double), double(*Grad)(double, double, double&, 
 		t0 = 0.5*(left + right);//一维搜索结束得到t0
 		x1 = x1 - t0 * (h11*g1 + h12 * g2);
 		x2 = x2 - t0 * (h21*g1 + h22 * g2);
+		printf("p1=%f p2=%f \n", -(h11*g1 + h12 * g2), -(h21*g1 + h22 * g2));
 		g1last = g1;
 		g2last = g2;
 		i++;
-		printf("第%d次迭代得到的点为(%f,%f)，最优步长t为%f\n", i, x1, x2, t0);
 		(*Grad)(x1, x2, g1, g2);
-		if (sqrt(g1*g1 + g2 * g2) < precision)		{//将循环终止条件放在此处可减小运算量，一旦g1 g2符合要求则立即终止循环，不进行下一步对H矩阵的复杂运算
+		printf("x1 = %f x2 = %f \n g1 = %f g2 = %f \n", x1, x2, g1, g2);
+		printf("第%d次迭代得到的点为(%f,%f)，最优步长t为%f\n", i, x1, x2, t0);
+		if (sqrt(g1*g1 + g2 * g2) < precision){
+			//将循环终止条件放在此处可减小运算量，一旦g1 g2符合要求则立即终止循环，不进行下一步对H矩阵的复杂运算
 			break;
 		}
-		dx1 = -t0 * (h11*g1 + h12 * g2);
-		dx2 = -t0 * (h21*g1 + h22 * g2);//Δx
+		dx1 = -t0 * (h11*g1last + h12 * g2last);
+		dx2 = -t0 * (h21*g1last + h22 * g2last);//Δx
 		dg1 = g1 - g1last;
 		dg2 = g2 - g2last;//Δg
 		h11 = h11 + dx1 * dx1 / (dx1*dg1 + dx2 * dg2) - (h11*h11*dg1*dg1 + h12 * h11*dg1*dg2 + h11 * h21*dg1*dg2 + h12 * h21*dg2*dg2) / (dg1*dg1*h11 + dg1 * dg2*h21 + dg1 * dg2*h12 + dg2 * dg2*h22);
 		h12 = h12 + dx1 * dx2 / (dx1*dg1 + dx2 * dg2) - (h11*h12*dg1*dg1 + h12 * h12*dg1*dg2 + h11 * h22*dg1*dg2 + h12 * h22*dg2*dg2) / (dg1*dg1*h11 + dg1 * dg2*h21 + dg1 * dg2*h12 + dg2 * dg2*h22);
 		h21 = h21 + dx1 * dx2 / (dx1*dg1 + dx2 * dg2) - (h11*h21*dg1*dg1 + h11 * h22*dg1*dg2 + h21 * h21*dg1*dg2 + h21 * h22*dg2*dg2) / (dg1*dg1*h11 + dg1 * dg2*h21 + dg1 * dg2*h12 + dg2 * dg2*h22);
 		h22 = h22 + dx2 * dx2 / (dx1*dg1 + dx2 * dg2) - (h12*h21*dg1*dg1 + h12 * h22*dg1*dg2 + h21 * h22*dg1*dg2 + h22 * h22*dg2*dg2) / (dg1*dg1*h11 + dg1 * dg2*h21 + dg1 * dg2*h12 + dg2 * dg2*h22);
+		printf("dx1 = %f dx2 = %f \n dg1 = %f dg2 = %f \n h11 = %f h12 = %f  \n h21 = %f h22 = %f \n", dx1, dx2, dg1, dg2, h11, h12, h21, h22);
 		//复杂的H迭代公式
 	}
 	printf("\n最小值点为(%f,%f)\n", x1, x2);
