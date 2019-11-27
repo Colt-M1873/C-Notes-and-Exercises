@@ -1,6 +1,6 @@
 vs常用快捷键查找
 先按ctrl+k再按ctrl+c批量注释
-先按ctrl+k再按ctrl+u批量取消注释
+先按ctrl+k再按ctrl+u批量取消注释erasf
 ctrl-shift-b生成解决方案，在英文输入法下可用，在中文输入法下会打开表情
 先按ctrl+k再按ctrl+f格式化选中的代码
 ctrl+d复制上一排
