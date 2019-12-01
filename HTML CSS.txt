@@ -1,6 +1,9 @@
 网站内部链接最好使用相对位置，因为网站放在一个文件夹中，如果使用绝对位置，当网站文件夹整体被移动后则不能通过访问绝对位置来获取信息
 
 css Cascading Style Sheets层叠样式表，是网页中使用的样式的集合
+cascade小瀑布，层叠
+URL Uniform Resource Locaror 统一资源定位器
+HTML Hypertext Markup Language 超文本标记语言
 
 Dreamweaver 快捷键
 Ctrl+空格 输入提示器中内容，容易与切换输入法快捷键冲突，应适当重设
@@ -11,3 +14,16 @@ Ctrl+Tab 切换文件浏览窗格
 
 br换行，b加粗，hr水平线，&nbsp空格
 basefont定义默认样式
+
+
+给一张图片的不同区域添加超链接或者样式使用的是图像映射操作 
+图像映射
+<ing src="文件位置/URL"  usemap="id/name">
+<map name="" id="">
+<area shape="" coords="" herf="URL" >
+</map>
+其中shape可以选择三角圆形或多边形等，name和id为该超连接区域的名称和id（name和id的区别？？）
+
+<head>部分可以放入<style>标记用于定义样式
+css样式文件的连接也放在head部分中
+
