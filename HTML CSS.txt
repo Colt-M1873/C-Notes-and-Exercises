@@ -4,6 +4,7 @@ css Cascading Style Sheets层叠样式表，是网页中使用的样式的集合
 cascade小瀑布，层叠
 URL Uniform Resource Locaror 统一资源定位器
 HTML Hypertext Markup Language 超文本标记语言
+FTP File Transfer Protocol 
 
 Dreamweaver 快捷键
 Ctrl+空格 输入提示器中内容，容易与切换输入法快捷键冲突，应适当重设
