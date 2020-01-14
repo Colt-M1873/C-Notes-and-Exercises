@@ -1,4 +1,4 @@
-事件模型
+事件模型？
 输出 console.log(); 用于调试变量
 number类型，包括整数小数
 bool 二值逻辑 判断结果为bool类型
@@ -35,4 +35,11 @@ Document 对象使我们可以从脚本中对 HTML 页面中的所有元素进�
 import {} from 导入
 export导出
 
+容器
+map
+key value  键 值 配合
+map.set( key,value)存
+console.log()取
 
+super()函数可写在子类构造函数中，用于向父类传递函数，即调用父类构造函数，不必在子类中重新写
+super在子类中调用父类函数时使用
