@@ -43,3 +43,19 @@ console.log()取
 
 super()函数可写在子类构造函数中，用于向父类传递函数，即调用父类构造函数，不必在子类中重新写
 super在子类中调用父类函数时使用
+
+
+HTML5中引入JS
+<script src="jquery-1.10.2.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
