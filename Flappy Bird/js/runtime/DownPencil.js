@@ -6,6 +6,6 @@ export class DownPencil extends Pencil {
         const image = DataStore.getInstance().res.get('pd');
         super(image);
 
-        this.y=top+window.innerHeight/5;
+        this.y=top+window.innerHeight/4;
     }
 }

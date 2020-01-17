@@ -24,4 +24,7 @@ export class DataStore {
         return this.map.get(key);
     }
     //清除方法
+    clearDataStore() {
+        this.map.clear();//?????
+    }
 }

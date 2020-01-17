@@ -7,10 +7,12 @@ export class Pencil extends Sprite{
             0, 0,
             image.width,
             image.height,
-            window.innerWidth, 0,
+            window.innerWidth, window.innerHeight,
             image.width,
             image.height
         );
+        this.width=52;
+        this.height=420;
 
     }
     draw(){
