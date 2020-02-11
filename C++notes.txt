@@ -148,8 +148,6 @@ const int &rx=x;
 
 
 9.11
-
-
 定义指针调用函数
 int func ( int *p){}
 调用该函数
