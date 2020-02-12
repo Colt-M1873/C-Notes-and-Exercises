@@ -1,5 +1,5 @@
 https://qtguide.ustclug.org/
-QT tricks 
+QT tricks
 ctrl+tab切换文件界面
 ctrl+6帮助模式
 
