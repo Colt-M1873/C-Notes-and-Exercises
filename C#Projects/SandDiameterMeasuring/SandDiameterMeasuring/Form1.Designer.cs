@@ -40,6 +40,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -100,26 +101,26 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(24, 35);
+            this.pictureBox2.Location = new System.Drawing.Point(6, 9);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(467, 359);
+            this.pictureBox2.Size = new System.Drawing.Size(840, 630);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.tabControl1);
             this.panel2.Location = new System.Drawing.Point(387, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(523, 465);
+            this.panel2.Size = new System.Drawing.Size(850, 650);
             this.panel2.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 17F);
-            this.label2.Location = new System.Drawing.Point(369, 6);
+            this.label2.Location = new System.Drawing.Point(712, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(151, 34);
             this.label2.TabIndex = 2;
@@ -131,10 +132,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Font = new System.Drawing.Font("宋体", 12F);
-            this.tabControl1.Location = new System.Drawing.Point(3, 6);
+            this.tabControl1.Location = new System.Drawing.Point(390, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(517, 459);
+            this.tabControl1.Size = new System.Drawing.Size(863, 680);
             this.tabControl1.TabIndex = 4;
             // 
             // tabPage1
@@ -143,7 +144,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 34);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(509, 421);
+            this.tabPage1.Size = new System.Drawing.Size(855, 642);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "统计图";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -154,23 +155,32 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(509, 421);
+            this.tabPage2.Size = new System.Drawing.Size(855, 642);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "具体数据";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(119, 494);
+            this.textBox1.Location = new System.Drawing.Point(26, 494);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 28);
+            this.textBox1.Size = new System.Drawing.Size(246, 28);
             this.textBox1.TabIndex = 5;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(278, 494);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 28);
+            this.textBox2.TabIndex = 6;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(916, 545);
+            this.ClientSize = new System.Drawing.Size(1486, 852);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Start);
             this.Controls.Add(this.button1);
@@ -206,6 +216,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
