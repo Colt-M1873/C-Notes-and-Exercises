@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MathWorks.MATLAB.NET.Arrays;
 using DiameterCalculation;
+using System.IO;
 
 namespace SandDiameterMeasuring
 {
@@ -41,6 +42,9 @@ namespace SandDiameterMeasuring
 
         private void Start_Click(object sender, EventArgs e)
         {
+            //pictureBox2.Image = SandDiameterMeasuring.Properties.Resources.屏幕截图_1654_;
+           // pictureBox2.Image.Dispose();
+           // pictureBox2.Image = null;
             textBox1.Text = ("加载图片");
             OpenFileDialog file = new OpenFileDialog();
             file.InitialDirectory = ".";
@@ -68,7 +72,16 @@ namespace SandDiameterMeasuring
             //textBox2.Text = (sandNumber.ToString);
             string pathname2;
             pathname2 = "D:\\op\\tempresult.png";  //获得文件的绝对路径
-            this.pictureBox2.Load(pathname2);
+            //this.pictureBox2.Load(pathname2);//load貌似过时了？
+            this.pictureBox2.Image = Image.FromFile(pathname2);
+            //    pictureBox2.Image.Dispose();
+            FileStream pFileStream = new FileStream(pathname2, FileMode.Open, FileAccess.Read);
+            pictureBox2.Image = Image.FromStream(pFileStream);
+            pFileStream.Close();
+            pFileStream.Dispose();
+
+
+
             //if (System.IO.File.Exists(pathname2))
             //{
             //    System.IO.File.Delete(pathname2);

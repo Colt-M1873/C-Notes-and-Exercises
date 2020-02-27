@@ -108,9 +108,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\loadpicture.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\屏幕截图%281654%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
