@@ -30,15 +30,6 @@ namespace SandDiameterMeasuring
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Start_Click(object sender, EventArgs e)
         {
@@ -73,7 +64,7 @@ namespace SandDiameterMeasuring
             string pathname2;
             pathname2 = "D:\\op\\tempresult.png";  //获得文件的绝对路径
             //this.pictureBox2.Load(pathname2);//load貌似过时了？
-            this.pictureBox2.Image = Image.FromFile(pathname2);
+           // this.pictureBox2.Image = Image.FromFile(pathname2);
             //    pictureBox2.Image.Dispose();
             FileStream pFileStream = new FileStream(pathname2, FileMode.Open, FileAccess.Read);
             pictureBox2.Image = Image.FromStream(pFileStream);
@@ -87,5 +78,6 @@ namespace SandDiameterMeasuring
             //    System.IO.File.Delete(pathname2);
             //}
         }
+        //下一步是尝试将matlab的粒径数组导出，使用chart控件绘图
     }
 }
