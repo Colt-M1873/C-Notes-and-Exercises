@@ -56,6 +56,9 @@
     <Reference Include="DiameterCalculation">
       <HintPath>..\..\..\..\..\..\Desktop\DiameterCalculation\for_redistribution_files_only\DiameterCalculation.dll</HintPath>
     </Reference>
+    <Reference Include="linktocsharpV3">
+      <HintPath>..\..\..\..\..\..\Desktop\linktocsharpV3\for_redistribution_files_only\linktocsharpV3.dll</HintPath>
+    </Reference>
     <Reference Include="MWArray, Version=2.17.0.0, Culture=neutral, PublicKeyToken=e1d84a0da19db86f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\MATLAB\R2017a\toolbox\dotnetbuilder\bin\win64\v4.0\MWArray.dll</HintPath>
