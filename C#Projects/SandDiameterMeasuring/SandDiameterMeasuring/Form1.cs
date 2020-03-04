@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MathWorks.MATLAB.NET.Arrays;
 using DiameterCalculation;
+using linktocsharpV3;
 using System.IO;
 
 namespace SandDiameterMeasuring
@@ -57,9 +58,28 @@ namespace SandDiameterMeasuring
             //str1 = "'" + str1 + "'";//加单引号为符合matlab输入规范
             textBox1.Text = (str1);
             //textBox1.Text = (file.FileName);
-            Class1 c1 = new Class1();
+            DiameterCalculation.Class1 c1 = new DiameterCalculation.Class1();
             //Object sandNumber;
-            c1.linktocsharp(str1);
+            MWArray a1=c1.linktocsharp(str1);
+            MWNumericArray a2 = (MWNumericArray)a1;
+            textBox2.Text = a2.ToString();
+
+            linktocsharpV3.Class1 v3c1 = new linktocsharpV3.Class1();
+            //MWArray DiameterArray = v3c1.linktocsharpV3(str1);
+            MWArray[] resultlist = new MWArray[2];
+            resultlist = v3c1.linktocsharpV3(2,str1);//重要！！！m函数有多个返回值时在第一个参数里写入返回值个数，第二个参数才是输入m函数的第一个输入参数
+            MWNumericArray DiameterArray = (MWNumericArray)resultlist[0];//返回每一粒沙子的直径数组，为n行1列的二维数组
+            MWNumericArray SandNumber = (MWNumericArray)resultlist[1];//沙尘个数
+
+            double[,] DA = new double[(int)SandNumber, 1];//matlab函数返回值为二维数组，因此需要用二维数组接收
+            DA = (double[,])DiameterArray.ToArray();
+            //textBox3.Text = DA[(int)a2 - 1, 0].ToString();
+            textBox3.Text = DA[(int)SandNumber - 1, 0].ToString();
+
+
+
+
+
             //textBox2.Text = (sandNumber.ToString);
             string pathname2;
             pathname2 = "D:\\op\\tempresult.png";  //获得文件的绝对路径
@@ -71,12 +91,8 @@ namespace SandDiameterMeasuring
             pFileStream.Close();
             pFileStream.Dispose();
 
-
-
-            //if (System.IO.File.Exists(pathname2))
-            //{
-            //    System.IO.File.Delete(pathname2);
-            //}
+            
+            
         }
         //下一步是尝试将matlab的粒径数组导出，使用chart控件绘图
     }
