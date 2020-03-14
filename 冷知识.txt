@@ -2,7 +2,6 @@
 Unicode和老编码体系的转化过程中，肯定有一些字，用Unicode是没法表示的，Unicode官方用了一个占位符来表示这些文字，这就是：U+FFFD REPLACEMENT CHARACTER。
 那么U+FFFD的UTF-8编码出来，恰好是 '\xef\xbf\xbd'。如果这个'\xef\xbf\xbd'，重复多次，例如 '\xef\xbf\xbd\xef\xbf\xbd'，然后放到GBK/CP936/GB2312/GB18030的环境中显示的话，一个汉字2个字节，最终的结果就是：锟斤拷——锟(0xEFBF)，斤（0xBDEF），拷（0xBFBD ） 。
 
-
 千年虫问题（The Millennium Bug）
 2000年
 下一次是2038年
