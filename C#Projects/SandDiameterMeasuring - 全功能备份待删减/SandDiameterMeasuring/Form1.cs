@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MathWorks.MATLAB.NET.Arrays;
+using DiameterCalculation;
+using linktocsharpV3;
+using linktocsharpV4;
 using linktocsharpV5;
 using System.IO;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -178,7 +181,13 @@ namespace SandDiameterMeasuring
             string str1 = file.FileName;
             //str1 = "'" + str1 + "'";//加单引号为符合matlab输入规范
             textBox1.Text = (str1);
-            
+            //textBox1.Text = (file.FileName);
+            DiameterCalculation.Class1 c1 = new DiameterCalculation.Class1();
+            //Object sandNumber;
+            MWArray a1=c1.linktocsharp(str1);
+            MWNumericArray a2 = (MWNumericArray)a1;
+            textBox2.Text = a2.ToString();
+
             linktocsharpV5.Class1 v5c1 = new linktocsharpV5.Class1();
             //MWArray DiameterArray = v3c1.linktocsharpV3(str1);
             MWArray[] resultlist = new MWArray[2];
@@ -187,7 +196,7 @@ namespace SandDiameterMeasuring
             MWNumericArray SandNumber = (MWNumericArray)resultlist[1];//沙尘个数
             MWNumericArray DiameterNumber = (MWNumericArray)resultlist[2];//返回以50um为单位的粒径累加结果数组
             MWNumericArray xlength = (MWNumericArray)resultlist[3];//返回以50um为单位的粒径累加结果数组
-            textBox2.Text = SandNumber.ToString();
+
             double[,] DA = new double[(int)SandNumber, 1];//matlab函数返回值为二维数组，因此需要用二维数组接收
             DA = (double[,])DiameterArray.ToArray();
             double[,] DN = new double[(int)xlength, 1];//matlab函数返回值为二维数组，因此需要用二维数组接收
@@ -238,6 +247,18 @@ namespace SandDiameterMeasuring
             chart2.Series[0].Points.DataBindXY(xData2, yData2);
 
 
+            //textBox2.Text = (sandNumber.ToString);
+            string pathname2;
+            pathname2 = "D:\\op\\tempresult.png";  //获得文件的绝对路径
+            //this.pictureBox2.Load(pathname2);//load貌似过时了？
+           // this.pictureBox2.Image = Image.FromFile(pathname2);
+            //    pictureBox2.Image.Dispose();
+            FileStream pFileStream = new FileStream(pathname2, FileMode.Open, FileAccess.Read);
+            pictureBox2.Image = Image.FromStream(pFileStream);
+            pFileStream.Close();
+            pFileStream.Dispose();
+
+            
             
         }
      
