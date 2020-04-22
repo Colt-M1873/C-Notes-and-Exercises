@@ -10,12 +10,14 @@ using System.Windows.Forms;
 using MathWorks.MATLAB.NET.Arrays;
 using linktocsharpV5;
 using System.IO;
+using System.Diagnostics;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SandDiameterMeasuring
 {
     public partial class Form1 : Form
     {
+        
         public class ChartHelper
         {
             /// <summary>
@@ -175,6 +177,8 @@ namespace SandDiameterMeasuring
                     MessageBox.Show(ex.Message);
                 }
             }
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             string str1 = file.FileName;
             //str1 = "'" + str1 + "'";//加单引号为符合matlab输入规范
             textBox1.Text = (str1);
@@ -236,9 +240,9 @@ namespace SandDiameterMeasuring
                 yData2.Add(DN[j2, 0]);
             }
             chart2.Series[0].Points.DataBindXY(xData2, yData2);
-
-
-            
+            sw.Stop();
+            TimeSpan ts = sw.Elapsed;
+            Console.WriteLine("DateTime costed for this function is: {0}ms", ts.TotalMilliseconds);
         }
      
     }
