@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MathWorks.MATLAB.NET.Arrays;
-using linktocsharpV5;
+using linktocsharpV6;
 using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -41,7 +41,7 @@ namespace SandDiameterMeasuring
                     chart.Series[seriesName].MarkerStyle = MarkerStyle.Circle;
                     chart.Series[seriesName].MarkerColor = markColor;
                     chart.Series[seriesName].LabelForeColor = markColor;
-                    chart.Series[seriesName].LabelAngle = -90;
+                    chart.Series[seriesName].LabelAngle = 0;
                 }
             }
 
@@ -183,19 +183,22 @@ namespace SandDiameterMeasuring
             //str1 = "'" + str1 + "'";//加单引号为符合matlab输入规范
             textBox1.Text = (str1);
             
-            linktocsharpV5.Class1 v5c1 = new linktocsharpV5.Class1();
+            linktocsharpV6.Class1 v5c1 = new linktocsharpV6.Class1();
             //MWArray DiameterArray = v3c1.linktocsharpV3(str1);
             MWArray[] resultlist = new MWArray[2];
-            resultlist = v5c1.linktocsharpV5(4,str1);//重要！！！m函数有多个返回值时在第一个参数里写入返回值个数，第二个参数才是输入m函数的第一个输入参数
+            resultlist = v5c1.linktocsharpV6(5,str1);//重要！！！m函数有多个返回值时在第一个参数里写入返回值个数，第二个参数才是输入m函数的第一个输入参数
             MWNumericArray DiameterArray = (MWNumericArray)resultlist[0];//返回每一粒沙子的直径数组，为n行1列的二维数组
             MWNumericArray SandNumber = (MWNumericArray)resultlist[1];//沙尘个数
             MWNumericArray DiameterNumber = (MWNumericArray)resultlist[2];//返回以50um为单位的粒径累加结果数组
-            MWNumericArray xlength = (MWNumericArray)resultlist[3];//返回以50um为单位的粒径累加结果数组
+            MWNumericArray xlength = (MWNumericArray)resultlist[3];//返回粒径累加结果数组长度
+            MWNumericArray TypeNumber = (MWNumericArray)resultlist[4];//返回三种沙粒：石砾，粗沙粒，细沙粒个数数组
             textBox2.Text = SandNumber.ToString();
             double[,] DA = new double[(int)SandNumber, 1];//matlab函数返回值为二维数组，因此需要用二维数组接收
             DA = (double[,])DiameterArray.ToArray();
             double[,] DN = new double[(int)xlength, 1];//matlab函数返回值为二维数组，因此需要用二维数组接收
             DN = (double[,])DiameterNumber.ToArray();
+            double[,] TN = new double[3, 1];//matlab函数返回值为二维数组，因此需要用二维数组接收
+            TN = (double[,])TypeNumber.ToArray();
             //textBox3.Text = DA[(int)a2 - 1, 0].ToString();
             //textBox3.Text = DA[(int)SandNumber - 1, 0].ToString();
 
@@ -240,10 +243,30 @@ namespace SandDiameterMeasuring
                 yData2.Add(DN[j2, 0]);
             }
             chart2.Series[0].Points.DataBindXY(xData2, yData2);
+
+            chart3.Series.Clear();
+            ChartHelper.AddSeries(chart3, "饼状图", SeriesChartType.Pie, Color.Lime, Color.Black, true);
+            ChartHelper.SetStyle(chart3, Color.Transparent, Color.Black);
+            ChartHelper.SetLegend(chart3, Docking.Bottom, StringAlignment.Center, Color.Transparent, Color.Black);
+            List<double> y1 = new List<double>() { };
+            int j3;
+            for (j3= 0; j3 <= 2; j3++)
+            {
+                y1.Add(TN[j3, 0]);
+
+            }
+            string t1 = String.Format("石砾(>1000㎛):         {0}个", TN[0, 0]);
+            string t2 = String.Format("粗沙粒(250-1000㎛):    {0}个", TN[1, 0]);
+            string t3 = String.Format("细沙粒(50-250㎛):      {0}个", TN[2, 0]);
+            List<string> nameX = new List<string>() { t1, t2, t3 };
+            chart3.Series[0].Points.DataBindXY(nameX, y1);
+            chart3.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧 
+            chart3.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。 
+            chart3.Series[0].Label = "#PERCENT{P2}";
+
             sw.Stop();
             TimeSpan ts = sw.Elapsed;
             Console.WriteLine("DateTime costed for this function is: {0}ms", ts.TotalMilliseconds);
         }
-     
     }
 }
